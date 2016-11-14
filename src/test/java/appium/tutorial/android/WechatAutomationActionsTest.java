@@ -11,6 +11,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -26,22 +27,39 @@ import static appium.tutorial.android.util.Helpers.*;
 public class WechatAutomationActionsTest extends AppiumTest {
     @Test
     public void should_send_msg_to_a_contact() throws Exception {
+        String directoryPath = System.getenv("MSG_PATH");
+        File directory = new File(directoryPath);
+
+        if (!hasJsonFiles(directory))
+            System.out.println(String.format("No json files found in path %s.", directory));
+
         openSearchWindow();
-        String directory = System.getenv("MSG_PATH");
-        readMsgsAndSendMsgs(new File(directory));
+
+        readMsgsAndSendMsgs(directory);
 
         Thread.sleep(2000);
     }
 
+    private boolean hasJsonFiles(File file) throws Exception {
+        File[] files = file.listFiles(pathname -> {
+            if (pathname.isDirectory() || !pathname.getName().endsWith(".json"))
+                return false;
+            return true;
+        });
+        return files.length > 0;
+    }
+
     private void readMsgsAndSendMsgs(final File directory) {
+
         for (final File file : directory.listFiles()) {
-            if (file.isFile()) {
+            if (file.isFile() && file.getName().endsWith(".json")) {
                 try {
                     String content = FileUtils.readFileToString(file);
                     Map<String, String> map = new Gson().fromJson(content, Map.class);
                     String to = map.get("to");
                     String message = map.get("msg");
                     if (to == null || message == null) {
+                        System.out.println("Invalid Json File: both 'to' and 'msg' are essential.");
                         file.delete();
                         continue;
                     }
