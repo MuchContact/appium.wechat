@@ -40,7 +40,7 @@ public class WechatAutomationActionsTest extends AppiumTest {
                     String content = FileUtils.readFileToString(file);
                     Map<String, String> map = new Gson().fromJson(content, Map.class);
                     String to = map.get("to");
-                    String message = map.get("message");
+                    String message = map.get("msg");
                     if (to == null || message == null) {
                         file.delete();
                         continue;
