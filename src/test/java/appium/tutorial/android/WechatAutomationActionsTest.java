@@ -122,7 +122,7 @@ public class WechatAutomationActionsTest extends AppiumTest {
         String text = webElement.getText();
         webElement.click();
         int i = 0;
-        while (i < text.length()) {
+        while (text != null && text.length() > 0 && i < text.length()) {
             driver.sendKeyEvent(67);
             i++;
         }
