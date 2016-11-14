@@ -31,7 +31,7 @@ public class WechatAutomationActionsTest extends AppiumTest {
         File directory = new File(directoryPath);
 
         if (!hasJsonFiles(directory))
-            System.out.println(String.format("No json files found in path %s.", directory));
+            System.out.println(String.format("No json files found in path %s.", directoryPath));
 
         openSearchWindow();
 
