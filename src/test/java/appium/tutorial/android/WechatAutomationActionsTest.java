@@ -59,6 +59,7 @@ public class WechatAutomationActionsTest extends AppiumTest {
                     e.printStackTrace();
                     continue;
                 } catch (JsonSyntaxException jse) {
+                    jse.printStackTrace();
                     file.delete();
                     continue;
                 } catch (InterruptedException e) {
