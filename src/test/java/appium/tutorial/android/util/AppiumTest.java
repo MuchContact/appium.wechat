@@ -92,7 +92,7 @@ public class AppiumTest implements SauceOnDemandSessionIdProvider {
         capabilities.setCapability("appium-version", "1.1.0");
         capabilities.setCapability("platformName", "Android");
         capabilities.setCapability("deviceName", "Android");
-        capabilities.setCapability("platformVersion", "4.3");
+        capabilities.setCapability("platformVersion", "5.1");
         //输入中文字符时需要设置
         capabilities.setCapability("unicodeKeyboard", "True");
 //        capabilities.setCapability("resetKeyboard", "True");
